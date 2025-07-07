@@ -1,0 +1,7 @@
+soundfile
+librosa
+torchaudio
+einops
+transformers
+huggingface_hub
+accelerate
