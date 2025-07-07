@@ -1,0 +1,8 @@
+version: "1"
+name: DiffRhythm-GPU
+type: pod
+containerDiskInGb: 5
+volumeInGb: 5
+httpPort: 8080
+containerImage: runpod/pytorch:2.1.0-cuda11.8
+startCommand: bash runpod_docker_start.sh
