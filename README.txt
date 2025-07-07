@@ -1,41 +1,63 @@
-Nombre del proyecto: DiffRhythm-Docker
-Uso: Backend Flask con DiffRhythm funcionando en GPU para generar música vocal AI
+# 🎵 DiffRhythm GPU API (Docker Image)
 
-📦 Contenido del paquete:
+This Docker image runs a Flask-based API for generating AI music with vocals using the [DiffRhythm](https://github.com/ASLP-lab/DiffRhythm) project. It is optimized to run on GPU environments like RunPod.
 
-DiffRhythm-Docker/
-├── app.py                  ← API Flask principal
-├── Dockerfile              ← Clona DiffRhythm de GitHub
-├── requirements.txt        ← Dependencias PyPI mínimas
-├── runpod_docker_start.sh  ← Script opcional de arranque
-└── templates/
-    └── index.html          ← Interfaz web de prueba
+---
 
-🚀 Instrucciones para RunPod
+## 🚀 Features
 
-1. Ve a: https://runpod.io/console
-2. Crea un nuevo "Custom Image GPU Pod"
-3. Sube el .zip del proyecto (DiffRhythm-Docker.zip)
-4. Configura:
-   - Container Port: 8080
-   - Command: python3 app.py
-     (o ./runpod_docker_start.sh si quieres usar el script)
-5. Espera 2–3 minutos. Cuando esté listo, abre el puerto público 8080.
+- Automatically clones DiffRhythm from GitHub
+- Accepts lyrics in plain text, raw `.lrc`, or use the example LRC file
+- Flask API runs on port `8080`
+- Returns generated `.mp3` and `.lrc` file
+- Ideal for testing and integration with Laravel, Python, or frontend apps
 
-🔍 Para probar la API
+---
 
-Abre tu navegador en:
+## 🧪 Example API Usage
 
-http://<public-ip>:8080/
+### Generate music using the example `.lrc`:
 
-O prueba con curl:
-
-curl -X POST http://<public-ip>:8080/generate \
+```bash
+curl -X POST http://<your-runpod-url>:8080/generate \
   -H "Content-Type: application/json" \
   -d '{
-    "title": "demo",
+    "title": "demo_song",
     "use_example_lrc": true,
     "genre": "hip hop",
-    "style": "energetic male vocal",
-    "instruments": "808s"
+    "style": "male energetic vocal",
+    "instruments": "808s, synths"
   }'
+```
+
+---
+
+## 🛠 Run on RunPod (Recommended)
+
+1. Go to [https://runpod.io/console](https://runpod.io/console)
+2. Create a new **Custom GPU Pod**
+3. Use the following configuration:
+
+- **Container Image:** `stevenkingx/diffrhythm:latest`
+- **Container Start Command:** `bash runpod_docker_start.sh`
+- **HTTP Port:** `8080`
+
+---
+
+## 📂 File Structure
+
+- `app.py` – Flask backend
+- `templates/index.html` – Web form for local testing
+- `runpod_docker_start.sh` – Start script
+- `requirements.txt` – Python dependencies
+- Docker auto-clones DiffRhythm into `/app/DiffRhythm`
+
+---
+
+## 📜 License
+
+This project uses the [Stability AI License](https://huggingface.co/stabilityai/stable-audio-open-1.0/blob/main/LICENSE.md) from DiffRhythm and ASLP-Lab.
+
+---
+
+Created by [Stevenkingx](https://github.com/Stevenkingx)
